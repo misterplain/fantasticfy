@@ -6,7 +6,7 @@ const fetchData = asyncHandler(async (req, res) => {
     method: "GET",
     url: "https://test-fullstack.myshopify.com/admin/api/2023-04/products.json",
     headers: {
-      "X-Shopify-Access-Token": "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",
+      "X-Shopify-Access-Token": process.env.SHOPIFY_ACCESS_TOKEN,
       "Content-Type": "application/json",
     },
   };
