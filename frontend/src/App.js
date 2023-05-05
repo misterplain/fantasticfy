@@ -21,6 +21,8 @@ function App() {
 
   const theme = designTheme;
 
+  // console.log(collectionData)
+
   useEffect(() => {
     console.log(collectionData);
     if (!collectionData.products) {
@@ -58,7 +60,7 @@ function App() {
           <Layout>
             <Routes>
               <Route path='/' element={<HomeScreen />} />
-              <Route path='/product/:id' element={<ProductScreen />} />
+              <Route path='/product/:productId' element={<ProductScreen />} />
             </Routes>
           </Layout>
           <Box

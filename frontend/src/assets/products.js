@@ -1,4 +1,4 @@
-const products = [
+ const productsCollection = [
   {
     id: 8242953650454,
     title: "Gift Card",
@@ -1733,3 +1733,5 @@ const products = [
     },
   },
 ];
+
+export default productsCollection;

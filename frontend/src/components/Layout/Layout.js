@@ -5,7 +5,6 @@ import Header from "../Header/Header";
 const Layout = ({ children }) => {
   return (
     <>
-      <Header />
       <Grid container>
         <Grid item xs={12}>
           {children}

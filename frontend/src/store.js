@@ -8,7 +8,7 @@ import { productReducer } from "./reducers/productReducer";
 
 const reducer = combineReducers({
   collection: collectionReducer,
-//   products: productReducer
+  product: productReducer
   
 });
 
