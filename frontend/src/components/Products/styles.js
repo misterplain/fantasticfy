@@ -1,6 +1,5 @@
-const styles = 
-{
-    wrapper: (theme) => ({
-        margin: "0 15px",
-    })
-}
+const styles = {
+  wrapper: (theme) => ({
+    margin: "0 15px",
+  }),
+};

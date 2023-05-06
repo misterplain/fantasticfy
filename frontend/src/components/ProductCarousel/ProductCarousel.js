@@ -23,109 +23,125 @@ import styles from "./styles";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-
-
 const ProductCarousel = ({ product }) => {
-    //theme for carousel
-    const theme = useTheme();
+  //theme for carousel
+  const theme = useTheme();
   //swipable
   const [activeStep, setActiveStep] = useState(0);
+  console.log(activeStep);
+
+  function getImageAndVariantInfo(product) {
+    if (product) {
+      const image = product.images[activeStep].src;
+      const variant = product.images[activeStep].alt;
+      return { image, variant };
+    }
+  }
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // console.log(activeStep);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    // console.log(activeStep);
   };
 
   const handleStepChange = (step) => {
     setActiveStep(step);
+    // console.log(step)
   };
+
   return (
     <>
-
       <Grid item>
         {" "}
-        <AutoPlaySwipeableViews
+        {/* <AutoPlaySwipeableViews
           // axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           axis='x-reverse'
           index={activeStep}
           onChangeIndex={handleStepChange}
           enableMouseEvents
-          interval={5000}
+          interval={10000}
           //   sx={{ boxShadow: "none" }}
-        >
-          {product &&
-            product?.images.map((step, index) => (
-              <Grid container item xs={12} key={step.id}>
-                {Math.abs(activeStep - index) <= 1 ? (
-                  <>
+        > */}
+
+        {product &&
+          product?.images.map((step, index) => (
+            <Grid container item xs={12} key={step.id}>
+              {activeStep === index ? (
+                <>
+                  <Grid item xs={12}>
+                    <Box
+                      component='img'
+                      sx={styles.image}
+                      src={step.src}
+                      alt={step.alt}
+                    />
+                  </Grid>
+                  {product?.variants && (
                     <Grid item xs={12}>
-                      <Box
-                        component='img'
-                        sx={styles.image}
-                        src={step.src}
-                        alt={step.alt}
-                      />
+                      {(() => {
+                        const matchingVariant = product.variants.find(
+                          (variant) => variant.image_id === step.id
+                        );
+                        if (matchingVariant) {
+                          return (
+                            <Typography variant="body1" key={matchingVariant.id}>
+                              <Typography variant="body2">{matchingVariant.title}</Typography>
+                              <Typography variant="body2">{matchingVariant.price}</Typography>
+                            </Typography>
+                          );
+                        }
+                        return null;
+                      })()}
                     </Grid>
-                    {/* <Grid item xs={12} md={4}>
-                      <Card sx={{}}>
-                        <CardContent>
-                          <Typography variant='h5' color='purple'>
-                            {step.title}
-                          </Typography>
-                          <Typography
-                            variant='body'
-                            component='div'
-                          >
-                            {step.alt}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid> */}
-                  </>
-                ) : null}
-              </Grid>
-            ))}
-        </AutoPlaySwipeableViews>
+                  )}
+                </>
+              ) : null}
+            </Grid>
+          ))}
+        {/* </AutoPlaySwipeableViews> */}
       </Grid>
-      <Grid item xs={12}>
-            {" "}
-            <MobileStepper
-              steps={product.images.length}
-              position='static'
-              activeStep={activeStep}
-              sx={{ width: "80%", margin: "0 auto" }}
-              nextButton={
-                <Button
-                  size='small'
-                  onClick={handleNext}
-                  disabled={activeStep === product.images.length - 1}
-                >
-                  Next
-                  {theme.direction === "rtl" ? (
-                    <KeyboardArrowLeft />
-                  ) : (
-                    <KeyboardArrowRight />
-                  )}
-                </Button>
-              }
-              backButton={
-                <Button
-                  size='small'
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                >
-                  {theme.direction === "rtl" ? (
-                    <KeyboardArrowRight />
-                  ) : (
-                    <KeyboardArrowLeft />
-                  )}
-                  Back
-                </Button>
-              }
-            />
-          </Grid>
+      {product?.images.length > 1 ? (
+        <Grid item xs={12}>
+          {" "}
+          <MobileStepper
+            steps={product.images.length}
+            position='static'
+            activeStep={activeStep}
+            sx={{ width: "80%", margin: "0 auto" }}
+            nextButton={
+              <Button
+                size='small'
+                onClick={handleNext}
+                disabled={activeStep === product.images.length - 1}
+              >
+                Next
+                {theme.direction === "rtl" ? (
+                  <KeyboardArrowLeft />
+                ) : (
+                  <KeyboardArrowRight />
+                )}
+              </Button>
+            }
+            backButton={
+              <Button
+                size='small'
+                onClick={handleBack}
+                disabled={activeStep === 0}
+              >
+                {theme.direction === "rtl" ? (
+                  <KeyboardArrowRight />
+                ) : (
+                  <KeyboardArrowLeft />
+                )}
+                Back
+              </Button>
+            }
+          />
+        </Grid>
+      ) : null}
     </>
   );
 };

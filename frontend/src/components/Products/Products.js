@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Product from "../ProductCard/ProductCard";
+import ProductCard from "../ProductCard/ProductCard";
 import { NavLink } from "react-router-dom";
 import { Link } from "@mui/material";
 
@@ -18,14 +18,14 @@ const Products = () => {
   return (
     <Box sx={styles.wrapper}>
       {/* individual product */}
-      <Grid container spacing={1}>
+      <Grid container spacing={1} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
         {loading ? (
           <Typography>Loading...</Typography>
         ) : error ? (
           <Typography>{error}</Typography>
         ) : (
           productsCollection?.map((product) => (
-            <Product product={product} key={product.id} />
+            <ProductCard product={product} key={product.id} />
           ))
         )}
       </Grid>

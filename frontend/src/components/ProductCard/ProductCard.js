@@ -9,12 +9,6 @@ import { Link } from "@mui/material";
 import { setProduct } from "../../actions/productActions";
 
 import styles from "./styles";
-// import productsCollection from "../../assets/products";
-
-// console.log(productsCollection);
-// console.log(productsCollection[13].image.src);
-
-//determine lowest price
 
 function lowestPrice(prod) {
   let lowestPrice = parseFloat(prod.variants[0].price);
@@ -39,8 +33,9 @@ const ProductCard = ({ product }) => {
     <Grid
       item
       xs={10}
-      sm={4}
+      sm={6}
       md={4}
+      lg={3}
       key={product.id}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
