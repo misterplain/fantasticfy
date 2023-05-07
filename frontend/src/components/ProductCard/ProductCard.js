@@ -29,6 +29,14 @@ function lowestPrice(prod) {
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+
+  //deterime invetory within the variants
+
+  const inventory = product.variants.reduce((acc, variant) => {
+    return acc + variant.inventory_quantity;
+  }, 0); // Don't forget to add the initial value (0) for the accumulator
+
+  console.log(inventory);
   return (
     <Grid
       item
@@ -42,7 +50,7 @@ const ProductCard = ({ product }) => {
       <Link
         component={NavLink}
         to={`/product/${product.id}`}
-        sx={{ textDecoration: "none" }}
+        sx={{ textDecoration: "none", width: "100%" }}
         onClick={() => {
           window.scrollTo(0, 0);
           dispatch(setProduct(product.id));
@@ -51,22 +59,43 @@ const ProductCard = ({ product }) => {
         {" "}
         <Box sx={styles.productCard} key={product.id}>
           <Box sx={styles.productCardImageWrapper}>
-            <Box
-              component='img'
-              src={
-                product.image
-                  ? product.image.src
-                  : "https://via.placeholder.com/150"
-              }
-              sx={styles.productCardImage}
-              alt={product.image ? product.image.alt : "placeholder text"}
-            />
-          </Box>
+            {product.image ? (
+              <Box
+                component='img'
+                src={product.image.src}
+                sx={styles.productCardImage}
+                alt={product.image.alt}
+              />
+            ) : (
+              <Box sx={styles.missingPhoto}>
+                <Typography sx={{ fontSize: "3rem" }}>
+                  {product.title}
+                </Typography>
+              </Box>
+            )}
+          </Box>{" "}
           <Box sx={styles.productDetailsWrapper}>
             <Box sx={styles.title}>{product.title}</Box>
+            <Box sx={styles.inventory}>
+              {" "}
+              {product?.variants[0].inventory_management === "shopify" ? (
+                <>
+                  {inventory === 0 && (
+                    <Typography sx={styles.outOfStock}>Out of Stock</Typography>
+                  )}
+                  {inventory > 0 && inventory < 20 && (
+                    <Typography sx={styles.lowStock}>
+                      Only {inventory} left in stock
+                    </Typography>
+                  )}
+                  {inventory >= 20 && (
+                    <Typography sx={styles.inStock}>In Stock</Typography>
+                  )}
+                </>
+              ) : null}
+            </Box>
             <Box sx={styles.price}>${lowestPrice(product)}</Box>
-            <Box sx={styles.description}>{product.description}</Box>
-          </Box>
+          </Box>{" "}
         </Box>
       </Link>
     </Grid>

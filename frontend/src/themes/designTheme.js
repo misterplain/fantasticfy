@@ -14,6 +14,9 @@ const designTheme = createTheme({
     success: {
       main: "#778DA9",
     },
+    inStock: {
+      main: "#009900",
+    }
   },
   typography: {
     h1: {

@@ -133,30 +133,33 @@ const ProductCarousel = ({ product }) => {
       </Grid>
       <Grid item xs={6}>
         {" "}
-        <Box sx={{ minWidth: 120, border: "1px solid red" }}>
-          <FormControl fullWidth>
-            <InputLabel id='demo-simple-select-label'>Variant</InputLabel>
-            <Select
-              labelId='demo-simple-select-label'
-              id='demo-simple-select'
-              value={selectedVariant.title}
-              label='Variant'
-              onChange={handleVariantChange}
-            >
-              {variants.map((variant, index) => (
-                <MenuItem key={index} value={variant.title}>
-                  {variant.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
+        {variants?.length > 1 ? (
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id='demo-simple-select-label'>Variant</InputLabel>
+              <Select
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
+                value={selectedVariant.title}
+                label='Variant'
+                onChange={handleVariantChange}
+              >
+                {variants.map((variant, index) => (
+                  <MenuItem key={index} value={variant.title}>
+                    {variant.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        ) : null}
         {selectedVariant && (
           <>
             {" "}
             <Typography>{selectedVariant?.price}</Typography>
             <Typography>
-              {title} : {selectedVariant?.title}
+              {title}{" "}
+              {variants?.length > 1 ? `: ${selectedVariant?.title}` : null}
             </Typography>
           </>
         )}

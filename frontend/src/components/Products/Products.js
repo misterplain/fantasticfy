@@ -18,7 +18,7 @@ const Products = () => {
   return (
     <Box sx={styles.wrapper}>
       {/* individual product */}
-      <Grid container spacing={1} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+      <Grid container spacing={1} marginLeft marginRightsx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
         {loading ? (
           <Typography>Loading...</Typography>
         ) : error ? (
