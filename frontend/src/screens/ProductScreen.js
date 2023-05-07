@@ -11,11 +11,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 const ProductScreen = ({ match }) => {
-  const { productId } = useParams();
-  console.log(productId);
+  const { productId } = useParams()
 
-  const productData = useSelector((state) => state.product.product);
-  console.log(productData);
+  const productData = useSelector((state) => state.product);
 
   return (
     <>
@@ -26,13 +24,14 @@ const ProductScreen = ({ match }) => {
         <Grid item xs={12}>
           <ProductTitle product={productData} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           {" "}
           <ProductCarousel product={productData} />
+
         </Grid>
-        <Grid item xs={6} >
+        {/* <Grid item xs={6} >
           <ProductDetails product={productData} />
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );
