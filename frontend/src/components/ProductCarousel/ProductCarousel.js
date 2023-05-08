@@ -26,8 +26,12 @@ const ProductCarousel = ({ product }) => {
   const theme = useTheme();
   const [selectedImageStep, setSelectedImageStep] = useState(0);
 
+  const productState = useSelector((state) => state.product);
+  const { loadingProduct, errorProduct, productData } = productState;
   const { id, image, images, options, variants, body_html, title } =
-    useSelector((state) => state?.product);
+productData
+
+    console.log(productData)
 
   const [selectedVariant, setSelectedVariant] = useState(variants[0]);
 
@@ -66,12 +70,24 @@ const ProductCarousel = ({ product }) => {
     }
   };
 
+  //format price
+
+  function formatPrice(price) {
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "decimal",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+    return formatter.format(price);
+  }
+
   return (
     <Grid
       container
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      // sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         {" "}
         {images &&
           images.map((step, index) => (
@@ -131,7 +147,12 @@ const ProductCarousel = ({ product }) => {
           </Grid>
         ) : null}
       </Grid>
-      <Grid item xs={6}>
+      <Grid
+        item
+        xs={12}
+        sm={6}
+        sx={{ height: "100%", border: "1px solid blue" }}
+      >
         {" "}
         {variants?.length > 1 ? (
           <Box sx={{ minWidth: 120 }}>
@@ -156,11 +177,27 @@ const ProductCarousel = ({ product }) => {
         {selectedVariant && (
           <>
             {" "}
-            <Typography>{selectedVariant?.price}</Typography>
             <Typography>
               {title}{" "}
               {variants?.length > 1 ? `: ${selectedVariant?.title}` : null}
             </Typography>
+            <Typography>${formatPrice(selectedVariant?.price)}</Typography>
+            {selectedVariant?.inventory_management === "shopify" ? (
+              <>
+                {selectedVariant?.inventory_quantity === 0 && (
+                  <Typography sx={styles.outOfStock}>Out of Stock</Typography>
+                )}
+                {selectedVariant?.inventory_quantity > 0 &&
+                  selectedVariant?.inventory_quantity < 20 && (
+                    <Typography sx={styles.lowStock}>
+                      Only {selectedVariant?.inventory_quantity} left in stock
+                    </Typography>
+                  )}
+                {selectedVariant?.inventory_quantity >= 20 && (
+                  <Typography sx={styles.inStock}>In Stock</Typography>
+                )}
+              </>
+            ) : null}
           </>
         )}
       </Grid>

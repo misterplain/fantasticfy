@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchCollections } from "../actions/collectionActions";
+import { setProduct } from "../actions/productActions";
+// import { useFetchProduct } from "../hooks/useFetchProduct";
 import ProductCard from "../components/ProductCard/ProductCard";
 import ProductTitle from "../components/ProductTitle/ProductTitle";
 import ProductCarousel from "../components/ProductCarousel/ProductCarousel";
@@ -11,9 +14,47 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 const ProductScreen = ({ match }) => {
-  const { productId } = useParams()
+  const { productId } = useParams();
+  const dispatch = useDispatch();
 
-  const productData = useSelector((state) => state.product);
+  const collectionState = useSelector((state) => state.collection);
+  const { collectionData, loadingCollection, errorCollection } =
+    collectionState;
+  const { productData, loadingProduct, errorProduct } = useSelector(
+    (state) => state.product
+  );
+
+  useEffect(() => {
+    console.log("first use effect actioned");
+    const fetchCollectionData = async () => {
+      if (!collectionData?.products && !loadingCollection) {
+        await dispatch(fetchCollections());
+      }
+    };
+
+    fetchCollectionData();
+  }, [dispatch, collectionData, loadingCollection]);
+
+  useEffect(() => {
+    console.log("second use effect actioned");
+    const setProductData = async () => {
+      if (collectionData?.products && !productData && !loadingProduct) {
+        await dispatch(setProduct(Number(productId)));
+      }
+    };
+
+    setProductData();
+  }, [dispatch, productId, collectionData, productData, loadingProduct]);
+
+  console.log(productData);
+
+  if (loadingCollection || loadingProduct) {
+    return <Typography>Loading...</Typography>;
+  }
+
+  if (errorCollection || errorProduct) {
+    return <Typography>Error: {errorCollection || errorProduct}</Typography>;
+  }
 
   return (
     <>
@@ -21,17 +62,16 @@ const ProductScreen = ({ match }) => {
         container
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Grid item xs={12}>
-          <ProductTitle product={productData} />
-        </Grid>
-        <Grid item xs={12}>
-          {" "}
-          <ProductCarousel product={productData} />
-
-        </Grid>
-        {/* <Grid item xs={6} >
-          <ProductDetails product={productData} />
-        </Grid> */}
+        {collectionData && productData && (
+          <>
+            <Grid item xs={12}>
+              <ProductTitle />
+            </Grid>
+            <Grid item xs={12}>
+              <ProductCarousel />
+            </Grid>
+          </>
+        )}
       </Grid>
     </>
   );

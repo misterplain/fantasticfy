@@ -30,13 +30,10 @@ function lowestPrice(prod) {
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
-  //deterime invetory within the variants
-
   const inventory = product.variants.reduce((acc, variant) => {
     return acc + variant.inventory_quantity;
-  }, 0); // Don't forget to add the initial value (0) for the accumulator
+  }, 0); 
 
-  console.log(inventory);
   return (
     <Grid
       item

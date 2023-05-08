@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { fetchCollections } from "./actions/collectionActions";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 import designTheme from "./themes/designTheme";
@@ -17,17 +16,10 @@ export const ThemeContext = React.createContext();
 function App() {
   const dispatch = useDispatch();
   const [viewport, setViewport] = useState("");
-  const collectionData = useSelector((state) => state.collection);
 
   const theme = designTheme;
 
-  // console.log(collectionData)
-
   useEffect(() => {
-    console.log(collectionData);
-    if (!collectionData.products) {
-      dispatch(fetchCollections());
-    }
 
     //resize window
     function handleResize() {
@@ -49,7 +41,7 @@ function App() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [dispatch, theme.breakpoints]);
+  }, [ theme.breakpoints]);
 
   return (
     <BrowserRouter>

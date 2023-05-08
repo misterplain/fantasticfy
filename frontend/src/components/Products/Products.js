@@ -12,17 +12,17 @@ import styles from "./styles";
 
 const Products = () => {
   const collectionState = useSelector((state) => state.collection);
-  const { loading, error, collection } = collectionState;
-  const productsCollection = collection?.products;
+  const { loadingCollection, errorCollection, collectionData } = collectionState;
+  const productsCollection = collectionData?.products;
 
   return (
     <Box sx={styles.wrapper}>
       {/* individual product */}
-      <Grid container spacing={1} marginLeft marginRightsx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-        {loading ? (
+      <Grid container spacing={1} marginLeft marginRight sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+        {loadingCollection ? (
           <Typography>Loading...</Typography>
-        ) : error ? (
-          <Typography>{error}</Typography>
+        ) : errorCollection ? (
+          <Typography>{errorCollection}</Typography>
         ) : (
           productsCollection?.map((product) => (
             <ProductCard product={product} key={product.id} />

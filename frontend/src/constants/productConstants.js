@@ -1,2 +1,4 @@
 export const SET_PRODUCT = "SET_PRODUCT";
 export const CLEAR_PRODUCT = "CLEAR_PRODUCT";
+export const PRODUCT_LOADING = "PRODUCT_LOADING";
+export const PRODUCT_ERROR = "PRODUCT_ERROR";

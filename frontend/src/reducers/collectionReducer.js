@@ -7,11 +7,11 @@ import {
 export const collectionReducer = (state = { }, action) => {
   switch (action.type) {
     case FETCH_COLLECTIONS_REQUEST:
-      return { loading: true, error: false, collection: [] };
+      return { loadingCollection: true, errorCollection: false, collectionData: [] };
     case FETCH_COLLECTIONS_SUCCESS:
-      return { loading: false, collection: action.payload };
+      return { loadingCollection: false, collectionData: action.payload };
     case FETCH_COLLECTIONS_FAIL:
-      return { loading: false, error: action.payload };
+      return { loadingCollection: false, errorCollection: action.payload };
     default:
       return state;
   }
