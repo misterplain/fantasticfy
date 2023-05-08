@@ -55,7 +55,7 @@ function App() {
               <Route path='/product/:productId' element={<ProductScreen />} />
             </Routes>
           </Layout>
-          <Box
+          {/* <Box
             position='fixed'
             bottom={0}
             left={0}
@@ -64,7 +64,7 @@ function App() {
             borderRadius={5}
           >
             <Typography>{viewport}</Typography>
-          </Box>
+          </Box> */}
         </ThemeProvider>
       </ThemeContext.Provider>
     </BrowserRouter>
