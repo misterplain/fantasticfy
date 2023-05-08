@@ -12,6 +12,7 @@ import { Link } from "@mui/material";
 import { setProduct } from "../actions/productActions";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import Loading from "../components/Loading/Loading";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,6 @@ const HomeScreen = () => {
         <Hero />
       </Grid>
       <Grid item xs={12}>
-        {" "}
         {productData && (
           <Link
             component={NavLink}
@@ -70,16 +70,16 @@ const HomeScreen = () => {
               }}
             >
               <Typography sx={{ fontSize: "20px", marginRight: "10px" }}>
-                Last visited: {productData.title} 
+                Last visited: {productData.title}
               </Typography>{" "}
-              <KeyboardArrowRight sx={{fontSize: "30px"}}/>
-              <KeyboardArrowRight sx={{fontSize: "30px"}}/>
+              <KeyboardArrowRight sx={{ fontSize: "30px" }} />
+              <KeyboardArrowRight sx={{ fontSize: "30px" }} />
             </Box>
           </Link>
         )}
       </Grid>
       <Grid item xs={12}>
-        {" "}
+        {loadingCollection && <Loading />}
         <Products />
       </Grid>
     </Grid>

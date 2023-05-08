@@ -122,7 +122,7 @@ const ProductCarousel = ({ product }) => {
           </Link>
         )}
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6} sx={{marginBottom: "50px"}}>
         {" "}
         {images &&
           images.map((step, index) => (

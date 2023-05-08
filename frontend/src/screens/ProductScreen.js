@@ -7,6 +7,7 @@ import ProductCard from "../components/ProductCard/ProductCard";
 import ProductTitle from "../components/ProductTitle/ProductTitle";
 import ProductCarousel from "../components/ProductCarousel/ProductCarousel";
 import ProductDetails from "../components/ProductDetails/ProductDetails.js";
+import Loading from "../components/Loading/Loading";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -44,7 +45,7 @@ const ProductScreen = ({ match }) => {
   }, [dispatch, productId, collectionData, productData, loadingProduct]);
 
   if (loadingCollection || loadingProduct) {
-    return <Typography>Loading...</Typography>;
+    return <Loading/>;
   }
 
   if (errorCollection || errorProduct) {
