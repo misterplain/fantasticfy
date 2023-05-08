@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams, HashRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 import designTheme from "./themes/designTheme";
@@ -44,7 +44,7 @@ function App() {
   }, [ theme.breakpoints]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ThemeContext.Provider value={{ designTheme }}>
         {" "}
         <ThemeProvider theme={designTheme}>
@@ -67,7 +67,7 @@ function App() {
           </Box> */}
         </ThemeProvider>
       </ThemeContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
