@@ -21,7 +21,7 @@ const Hero = () => {
       />
       <Box sx={styles.businessName}>
         <Typography variant='h1' sx={styles.title}>
-          FANTASTIC SNOWBOARDS
+          FANTASTICFY SNOWBOARDS
         </Typography>
       </Box>
     </Box>
