@@ -20,6 +20,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { NavLink } from "react-router-dom";
+import { Link } from "@mui/material";
 import styles from "./styles";
 
 const ProductCarousel = ({ product }) => {
@@ -29,9 +31,7 @@ const ProductCarousel = ({ product }) => {
   const productState = useSelector((state) => state.product);
   const { loadingProduct, errorProduct, productData } = productState;
   const { id, image, images, options, variants, body_html, title } =
-productData
-
-    console.log(productData)
+    productData;
 
   const [selectedVariant, setSelectedVariant] = useState(variants[0]);
 
@@ -71,7 +71,6 @@ productData
   };
 
   //format price
-
   function formatPrice(price) {
     const formatter = new Intl.NumberFormat("en-US", {
       style: "decimal",
@@ -85,8 +84,44 @@ productData
   return (
     <Grid
       container
-      // sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
+      <Grid item xs={12}>
+        {" "}
+        {productData && (
+          <Link
+            component={NavLink}
+            to='/'
+            sx={{
+              textDecoration: "none",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
+          >
+            {" "}
+            <Box
+              sx={{
+                width: "90%",
+                marginBottom: "20px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              {" "}
+              <KeyboardArrowLeft sx={{ fontSize: "30px" }} />
+              <KeyboardArrowLeft sx={{ fontSize: "30px" }} />
+              <Typography sx={{ fontSize: "20px", marginRight: "10px" }}>
+                Back to our Collection
+              </Typography>{" "}
+            </Box>
+          </Link>
+        )}
+      </Grid>
       <Grid item xs={12} sm={6}>
         {" "}
         {images &&
@@ -151,11 +186,16 @@ productData
         item
         xs={12}
         sm={6}
-        sx={{ height: "100%", border: "1px solid blue" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         {" "}
         {variants?.length > 1 ? (
-          <Box sx={{ minWidth: 120 }}>
+          <Box sx={styles.variantSelector}>
             <FormControl fullWidth>
               <InputLabel id='demo-simple-select-label'>Variant</InputLabel>
               <Select
@@ -177,11 +217,13 @@ productData
         {selectedVariant && (
           <>
             {" "}
-            <Typography>
+            <Typography sx={styles.title}>
               {title}{" "}
               {variants?.length > 1 ? `: ${selectedVariant?.title}` : null}
             </Typography>
-            <Typography>${formatPrice(selectedVariant?.price)}</Typography>
+            <Typography sx={styles.price}>
+              ${formatPrice(selectedVariant?.price)}
+            </Typography>
             {selectedVariant?.inventory_management === "shopify" ? (
               <>
                 {selectedVariant?.inventory_quantity === 0 && (

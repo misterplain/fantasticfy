@@ -1,5 +1,4 @@
 import Grid from "@mui/material/Grid";
-import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 const Layout = ({ children }) => {
@@ -10,7 +9,6 @@ const Layout = ({ children }) => {
           {children}
         </Grid>
       </Grid>
-      <Footer />
     </>
   );
 };

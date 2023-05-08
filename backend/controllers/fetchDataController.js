@@ -11,7 +11,7 @@ const fetchData = asyncHandler(async (req, res) => {
     },
   };
   const { data } = await axios.request(options);
-  console.log(data)
+
 
   res.json(data);
 });

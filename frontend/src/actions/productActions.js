@@ -5,7 +5,7 @@ export const setProduct = (productId) => async (dispatch, getState) => {
   const { loadingCollection, errorCollection, collectionData } =
     collectionState;
   const productsCollection = collectionData?.products;
-  console.log("set products accessed");
+
   const product = productsCollection?.find(
     (product) => product.id === productId
   );

@@ -1,7 +1,7 @@
 const styles = {
   productCard: (theme) => ({
     width: "90%",
-    border: "5px solid black",
+    border: `5px solid ${theme.palette.primary.main}`,
     borderRadius: "10px",
 
     display: "flex",

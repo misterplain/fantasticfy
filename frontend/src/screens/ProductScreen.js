@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCollections } from "../actions/collectionActions";
 import { setProduct } from "../actions/productActions";
-// import { useFetchProduct } from "../hooks/useFetchProduct";
 import ProductCard from "../components/ProductCard/ProductCard";
 import ProductTitle from "../components/ProductTitle/ProductTitle";
 import ProductCarousel from "../components/ProductCarousel/ProductCarousel";
@@ -25,7 +24,6 @@ const ProductScreen = ({ match }) => {
   );
 
   useEffect(() => {
-    console.log("first use effect actioned");
     const fetchCollectionData = async () => {
       if (!collectionData?.products && !loadingCollection) {
         await dispatch(fetchCollections());
@@ -36,7 +34,6 @@ const ProductScreen = ({ match }) => {
   }, [dispatch, collectionData, loadingCollection]);
 
   useEffect(() => {
-    console.log("second use effect actioned");
     const setProductData = async () => {
       if (collectionData?.products && !productData && !loadingProduct) {
         await dispatch(setProduct(Number(productId)));
@@ -45,8 +42,6 @@ const ProductScreen = ({ match }) => {
 
     setProductData();
   }, [dispatch, productId, collectionData, productData, loadingProduct]);
-
-  console.log(productData);
 
   if (loadingCollection || loadingProduct) {
     return <Typography>Loading...</Typography>;
@@ -64,10 +59,10 @@ const ProductScreen = ({ match }) => {
       >
         {collectionData && productData && (
           <>
-            <Grid item xs={12}>
+            <Grid item xs={10} >
               <ProductTitle />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={10}>
               <ProductCarousel />
             </Grid>
           </>

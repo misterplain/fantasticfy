@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Link } from "@mui/material";
 import { setProduct } from "../../actions/productActions";
+import { useTheme } from "@mui/material/styles";
 
 import styles from "./styles";
 
@@ -29,6 +30,7 @@ function lowestPrice(prod) {
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   const inventory = product.variants.reduce((acc, variant) => {
     return acc + variant.inventory_quantity;
@@ -54,7 +56,7 @@ const ProductCard = ({ product }) => {
         }}
       >
         {" "}
-        <Box sx={styles.productCard} key={product.id}>
+        <Box sx={styles.productCard(theme)} key={product.id}>
           <Box sx={styles.productCardImageWrapper}>
             {product.image ? (
               <Box
