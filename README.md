@@ -1,6 +1,6 @@
 # Fantastic Snowboards
 
-This is a practice project I've made to learn about the MERN stack, and to practice my React skills. It is a mock e-commerce site for a snowboard company, where users can browse products. The image carousel will associated the product variant with the displayed variant data.
+This is a practice project I've made to learn about the MERN stack, and to practice my React skills. It is a mock e-commerce site for a snowboard company, where users can browse products and click through to the product page. The image carousel will associate the product variant with the displayed variant data.
 
 The deployed site can be found [HERE](https://fantasticfy.onrender.com/)
 
