@@ -9,7 +9,11 @@ export const collectionReducer = (state = { }, action) => {
     case FETCH_COLLECTIONS_REQUEST:
       return { loadingCollection: true, errorCollection: false, collectionData: [] };
     case FETCH_COLLECTIONS_SUCCESS:
-      return { loadingCollection: false, collectionData: action.payload };
+      console.log(action.payload)
+      return { loadingCollection: false, collectionData: {
+        products: action.payload
+      },
+      errorCollection: false };
     case FETCH_COLLECTIONS_FAIL:
       return { loadingCollection: false, errorCollection: action.payload };
     default:

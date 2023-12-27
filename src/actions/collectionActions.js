@@ -3,13 +3,14 @@ import {
   FETCH_COLLECTIONS_REQUEST,
   FETCH_COLLECTIONS_SUCCESS,
 } from "../constants/collectionConstants";
-import axios from "../api/axios";
+import productsCollection from "../assets/products";
 
 export const fetchCollections = () => async (dispatch) => {
   try {
     dispatch({ type: FETCH_COLLECTIONS_REQUEST });
+    console.log(productsCollection);
 
-    const { data } = await axios.get("/products");
+    const data = productsCollection;
 
     dispatch({
       type: FETCH_COLLECTIONS_SUCCESS,

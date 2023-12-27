@@ -36,6 +36,8 @@ const ProductCard = ({ product }) => {
     return acc + variant.inventory_quantity;
   }, 0); 
 
+  console.log(product)
+
   return (
     <Grid
       item
